@@ -3,13 +3,15 @@
 
 from datetime import datetime, timezone
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient, ASCENDING
 from pymongo.errors import DuplicateKeyError
+
 
 load_dotenv()
 client = MongoClient(os.getenv("MONGODB_URI"), tz_aware=True)
@@ -20,6 +22,13 @@ readings = db["readings"]
 devices.create_index([("mac", ASCENDING)], unique=True)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class Device(BaseModel):
