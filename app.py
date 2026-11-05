@@ -43,7 +43,7 @@ class Reading(BaseModel):
     temp: float
 
     class Settings(BaseModel):
-    temp_limit: float
+        temp_limit: float
 
 
 @app.get("/devices")
