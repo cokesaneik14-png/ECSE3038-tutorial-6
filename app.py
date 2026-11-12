@@ -42,9 +42,9 @@ class Reading(BaseModel):
     mac: str
     temp: float
 
-    class Settings(BaseModel):
-        temp_limit: float
 
+class Settings(BaseModel):
+    temp_limit: float
 
 @app.get("/devices")
 def get_devices():
